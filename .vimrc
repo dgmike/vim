@@ -29,6 +29,12 @@ else
     color ir_black
 end
 
+if has("colorcolumn")
+    set colorcolumn=80
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
 imap (<Tab> ()<Left>
@@ -105,8 +111,6 @@ nmap ,unix   :%s/\r$//     <CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Miscellaneous
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" define :Lorem command to dump in a paragraph of lorem ipsum
-
 imap loren<Tab> Lorem ipsum dolor sit amet, consectetur
   \ adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
   \ magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -122,11 +126,13 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 
 " AutoCommands
 au BufEnter * set ai
-au BufEnter *.js imap fn<Tab> function (){}<Esc>F(i
+au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 
+" Set tab size on your file
+imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-
+" Easy set tab size
 function! SetTab(spaces)
   let spaces = a:spaces
   if a:spaces > 0
@@ -142,3 +148,6 @@ function! SetTab(spaces)
 endfunction
 
 command! -nargs=? ST :call SetTab(<f-args>)
+
+" habilitando ftplugin de sparkup
+source $HOME/.vim/ftplugin/sparkup.vim
