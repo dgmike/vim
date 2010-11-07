@@ -21,12 +21,12 @@ set ai si
 set hls ci
 set mouse=a
 
-if (has("gui"))
-	set gfn=Monaco\ 12
+if (has("gui_running"))
+	set gfn=Monaco\ 8
 	color chocolate
 else
-	color desert256
-	set bg=dark
+    let &t_Co=256
+    color ir_black
 end
 
 imap "<Tab> ""<Left>
@@ -124,3 +124,21 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>F(i
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
+
+
+
+function! SetTab(spaces)
+  let spaces = a:spaces
+  if a:spaces > 0
+    echo a:spaces
+    execute 'set tabstop='.spaces
+    execute 'set shiftwidth='.spaces
+    execute 'set expandtab'
+  else
+    set tabstop=4
+    set shiftwidth=4
+    set noexpandtab
+  endif
+endfunction
+
+command! -nargs=? ST :call SetTab(<f-args>)
