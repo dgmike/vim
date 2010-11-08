@@ -137,7 +137,9 @@ au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 " Set tab size on your file
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
+au FileType php set omnifunc=phpcomplete#CompletePHP
 " Easy set tab size
+
 function! SetTab(spaces)
   let spaces = a:spaces
   if a:spaces > 0
@@ -149,6 +151,8 @@ function! SetTab(spaces)
     set tabstop=4
     set shiftwidth=4
     set noexpandtab
+    set listchars=tab:¬\ ,trail:-
+    set list
   endif
 endfunction
 
