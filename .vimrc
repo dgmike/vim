@@ -87,6 +87,11 @@ imap ar';<Tab> array(';<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
 
+" Smaty
+imap %<Tab> <%%><Esc>F%i
+imap %%<Tab> <%php%><%/php%><esc>F<i
+imap %i<Tab> <%if %><%/if%><esc>F<F%i
+
 " phpdoc
 map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
