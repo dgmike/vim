@@ -16,6 +16,7 @@ set wildmode=list:longest                                                       
 set wildignore+=*.o,*~,.lo,*.swp,*.pyc,*.pyo,*.dll,*.obj,*.bak,*.exe,*.jpg,*.gif,*.png  " stuff to ignore when tab completing
 set joinspaces
 filetype indent on
+set modeline
 
 set clipboard+=unnamed
 set ai si
@@ -35,6 +36,7 @@ if has("colorcolumn")
 else
     au BufWinEnter * let w:m2=matchadd('ErrorMsg', '', -1)
     au BufWinEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    " au BufEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 imap "<Tab> ""<Left>
@@ -165,6 +167,16 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
+au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
+autocmd BufWinLeave * call clearmatches()
+
+" Highlight current line in insert mode.
+" autocmd InsertLeave * set nocul
+" autocmd InsertEnter * set cul 
+
+" Use filetype plugins, e.g. for PHP
+filetype plugin on
+filetype indent on
 
 " Set tab size on your file
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
@@ -192,6 +204,7 @@ command! -nargs=? ST :call SetTab(<f-args>)
 
 " habilitando ftplugin de sparkup
 source $HOME/.vim/ftplugin/sparkup.vim
+
 " Chamando as Tags
 
 " Automatically open the taglist window on Vim startup
@@ -234,3 +247,74 @@ let Tlist_Show_One_File = 1
 
 source $HOME/.vim/plugin/taglist.vim
 map <F6> :TlistToggle<CR>
+
+" integrando o codesniffer ao VIM
+" set errorformat+=\"%f\"\\,%l\\,%c\\,%t%*[a-zA-Z]\\,\"%m\"\\,%*[a-zA-Z0-9_.-]
+" 
+" function! RunPhpcs() 
+"     let l:quote_token="'"
+"     let l:filename=@% 
+"     let l:phpcs_output=system('phpcs --report=csv '.l:filename) 
+"     let l:phpcs_output=substitute(l:phpcs_output, '\\"', l:quote_token, 'g')
+"     let l:phpcs_list=split(l:phpcs_output, "\n") 
+"     unlet l:phpcs_list[0] 
+"     cexpr l:phpcs_list 
+"     copen
+" endfunction 
+" command! Phpcs execute RunPhpcs()
+
+" {{{ Alignment
+
+func! PhpAlign() range
+    let l:paste = &g:paste
+    let &g:paste = 0
+
+    let l:line        = a:firstline
+    let l:endline     = a:lastline
+    let l:maxlength = 0
+    while l:line <= l:endline
+        " Skip comment lines
+        if getline (l:line) =~ '^\s*\/\/.*$'
+            let l:line = l:line + 1
+            continue
+        endif
+        " \{-\} matches ungreed *
+        let l:index = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\S\{0,1}=\S\{0,1\}\s.*$', '\1', "") 
+        let l:indexlength = strlen (l:index)
+        let l:maxlength = l:indexlength > l:maxlength ? l:indexlength : l:maxlength
+        let l:line = l:line + 1
+    endwhile
+
+    let l:line = a:firstline
+    let l:format = "%s%-" . l:maxlength . "s %s %s"
+
+    while l:line <= l:endline
+        if getline (l:line) =~ '^\s*\/\/.*$'
+            let l:line = l:line + 1
+            continue
+        endif
+        let l:linestart = substitute (getline (l:line), '^\(\s*\).*', '\1', "")
+        let l:linekey   = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\1', "")
+        let l:linesep   = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\2', "")
+        let l:linevalue = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\3', "")
+
+        let l:newline = printf (l:format, l:linestart, l:linekey, l:linesep, l:linevalue)
+        call setline (l:line, l:newline)
+        let l:line = l:line + 1
+    endwhile
+    let &g:paste = l:paste
+endfunc
+
+vnoremap <buffer> <C-a> :call PhpAlign()<CR>
+
+""
+"" list chars
+""
+" set list listchars=tab:>\ ,trail:.,extends:>
+" Enter the middle-dot by pressing Ctrl-k then .M
+" set list listchars=tab:\|_,trail:·
+" Enter the right-angle-quote by pressing Ctrl-k then >>
+command! LC set list! listchars=tab:»\ ,trail:·
+" Enter the Pilcrow mark by pressing Ctrl-k then PI
+" set list listchars=tab:>-,eol:¶
+" The command :dig displays other digraphs you can use.
