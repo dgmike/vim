@@ -15,6 +15,7 @@ set wildmenu                                                                    
 set wildmode=list:longest                                                               " make cmdline tab completion similar to bash
 set wildignore+=*.o,*~,.lo,*.swp,*.pyc,*.pyo,*.dll,*.obj,*.bak,*.exe,*.jpg,*.gif,*.png  " stuff to ignore when tab completing
 set joinspaces
+filetype indent on
 
 set clipboard+=unnamed
 set ai si
@@ -32,7 +33,8 @@ end
 if has("colorcolumn")
     set colorcolumn=80
 else
-    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '', -1)
+    au BufWinEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 imap "<Tab> ""<Left>
@@ -55,6 +57,20 @@ imap ><Tab> ></><Esc>?<[a-zA-Z]<Cr><F4>lviwy/<\/><Cr><F4>lpF<i
 imap ><s-Tab> ><Tab>
 
 map <F4> :noh<Cr>
+
+" Troca o template para facilitar a leitura em alguns casos
+
+function! ToggleTemplate()
+    if &background == 'dark'
+        color symfony
+    else
+        color ir_black
+    endif
+endfunction
+
+map <F8> :call ToggleTemplate()<CR>
+
+" Mapeamento
 
 map <A-left>  :tabprev<Cr>
 map <A-right> :tabnext<Cr>
@@ -92,6 +108,22 @@ imap ar'<Tab> array('<Tab>
 imap ar';<Tab> array(';<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
+imap deb<Tab> <Esc>:call Dg_debug()<CR>
+
+function! Dg_debug()
+    let dg_v_debug=input('Variavel: ')
+    exe "normal iprint '<pre style=\\\'border:1px solid silver;padding:5px;overflow:auto;\\\'>';"
+    exe "normal oprint '<strong>File:</strong> '.__FILE__.PHP_EOL;"
+    exe "normal oprint '<strong>Line:</strong> '.__LINE__.PHP_EOL;"
+    exe "normal oprint '<strong>Variable:</strong> "
+    exe "normal i" dg_v_debug 
+    exe "normal A';"
+    exe "normal oprint '<hr />';"
+    exe "normal oprint_r ("
+    exe "normal A" dg_v_debug 
+    exe "normal A );"
+    exe "normal oprint '</pre>';"
+endfunction
 
 " Smaty
 imap %<Tab> <%%><Esc>F%i
@@ -160,3 +192,45 @@ command! -nargs=? ST :call SetTab(<f-args>)
 
 " habilitando ftplugin de sparkup
 source $HOME/.vim/ftplugin/sparkup.vim
+" Chamando as Tags
+
+" Automatically open the taglist window on Vim startup
+let Tlist_Auto_Open = 0
+" When the taglist window is toggle opened, move the cursor to the taglist window
+let Tlist_GainFocus_On_ToggleOpen = 1
+" Process files even when the taglist window is not open
+let Tlist_Process_File_Always = 0
+let Tlist_Show_Menu = 1
+" Tag listing sort type - 'name' or 'order'
+let Tlist_Sort_Type = 'order'
+" Tag listing window split (horizontal/vertical) control
+let Tlist_Use_Right_Window = 1
+" Display tag prototypes or tag names in the taglist window
+let Tlist_Display_Prototype = 0
+" Display tag scopes in the taglist window
+let Tlist_Display_Tag_Scope = 0
+" Use single left mouse click to jump to a tag. By default this is disabled.
+" Only double click using the mouse will be processed.
+let Tlist_Use_SingleClick = 0
+" Control whether additional help is displayed as part of the taglist or
+" not.  Also, controls whether empty lines are used to separate the tag tree.
+let Tlist_Compact_Format = 1
+" Exit Vim if only the taglist window is currently open. By default, this is set to zero.
+let Tlist_Exit_OnlyWindow = 1
+" Automatically close the folds for the non-active files in the taglist window
+let Tlist_File_Fold_Auto_Close = 1
+" Close the taglist window when a tag is selected
+let Tlist_Close_On_Select = 1
+" Automatically update the taglist window to display tags for newly edited files
+let Tlist_Auto_Update = 1
+" Automatically highlight the current tag
+let Tlist_Auto_Highlight_Tag = 1
+" Automatically highlight the current tag on entering a buffer
+let Tlist_Highlight_Tag_On_BufEnter = 1
+" Enable fold column to display the folding for the tag tree
+let Tlist_Enable_Fold_Column = 1
+" Display the tags for only one file in the taglist window
+let Tlist_Show_One_File = 1
+
+source $HOME/.vim/plugin/taglist.vim
+map <F6> :TlistToggle<CR>
