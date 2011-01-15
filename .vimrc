@@ -19,6 +19,8 @@ set wildmenu                                                                    
 set wildmode=list:longest                                                               " make cmdline tab completion similar to bash
 set wildignore+=*.o,*~,.lo,*.swp,*.pyc,*.pyo,*.dll,*.obj,*.bak,*.exe,*.jpg,*.gif,*.png  " stuff to ignore when tab completing
 set joinspaces
+filetype indent on
+set modeline
 
 set clipboard+=unnamed
 set ai si
@@ -29,6 +31,26 @@ match ErrorMsg '\%>80v.\+'
 
 set gfn=Monaco\ 9
 color Mustang_Vim_Colorscheme_by_hcalves
+
+
+
+
+
+if (has("gui_running"))
+	set gfn=Monaco\ 8
+	color chocolate
+else
+    let &t_Co=256
+    color ir_black
+end
+
+if has("colorcolumn")
+    set colorcolumn=80
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '', -1)
+    au BufWinEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    " au BufEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
 
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
@@ -50,6 +72,20 @@ imap ><Tab> ></><Esc>?<[a-zA-Z]<Cr><F4>lviwy/<\/><Cr><F4>lpF<i
 imap ><s-Tab> ><Tab>
 
 map <F4> :noh<Cr>
+
+" Troca o template para facilitar a leitura em alguns casos
+
+function! ToggleTemplate()
+    if &background == 'dark'
+        color symfony
+    else
+        color ir_black
+    endif
+endfunction
+
+map <F8> :call ToggleTemplate()<CR>
+
+" Mapeamento
 
 nmap <A-left>  :tabprev<Cr>
 nmap <A-right> :tabnext<Cr>
@@ -87,6 +123,27 @@ imap ar'<Tab> array('<Tab>
 imap ar';<Tab> array(';<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
+imap deb<Tab> <Esc>:call Dg_debug()<CR>
+
+function! Dg_debug()
+    let dg_v_debug=input('Variavel: ')
+    exe "normal iprint '<pre style=\\\'border:1px solid silver;padding:5px;overflow:auto;\\\'>';"
+    exe "normal oprint '<strong>File:</strong> '.__FILE__.PHP_EOL;"
+    exe "normal oprint '<strong>Line:</strong> '.__LINE__.PHP_EOL;"
+    exe "normal oprint '<strong>Variable:</strong> "
+    exe "normal i" dg_v_debug 
+    exe "normal A';"
+    exe "normal oprint '<hr />';"
+    exe "normal oprint_r ("
+    exe "normal A" dg_v_debug 
+    exe "normal A );"
+    exe "normal oprint '</pre>';"
+endfunction
+
+" Smaty
+imap %<Tab> <%%><Esc>F%i
+imap %%<Tab> <%php%><%/php%><esc>F<i
+imap %i<Tab> <%if %><%/if%><esc>F<F%i
 
 " phpdoc
 map ,pu :!phpunit %<Cr>
@@ -107,8 +164,6 @@ nmap ,unix   :%s/\r$//     <CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Miscellaneous
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" define :Lorem command to dump in a paragraph of lorem ipsum
-
 imap loren<Tab> Lorem ipsum dolor sit amet, consectetur
   \ adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
   \ magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -124,8 +179,159 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 
 " AutoCommands
 au BufEnter * set ai
-au BufEnter *.js imap fn<Tab> function (){}<Esc>F(i
+au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
+au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
+autocmd BufWinLeave * call clearmatches()
+
+" Highlight current line in insert mode.
+" autocmd InsertLeave * set nocul
+" autocmd InsertEnter * set cul 
+
+" Use filetype plugins, e.g. for PHP
+filetype plugin on
+filetype indent on
+
+" Set tab size on your file
+imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+au FileType php set omnifunc=phpcomplete#CompletePHP
+" Easy set tab size
+
+function! SetTab(spaces)
+  let spaces = a:spaces
+  if a:spaces > 0
+    echo a:spaces
+    execute 'set tabstop='.spaces
+    execute 'set shiftwidth='.spaces
+    execute 'set expandtab'
+  else
+    set tabstop=4
+    set shiftwidth=4
+    set noexpandtab
+    set listchars=tab:¬\ ,trail:-
+    set list
+  endif
+endfunction
+
+command! -nargs=? ST :call SetTab(<f-args>)
+
+" habilitando ftplugin de sparkup
+source $HOME/.vim/ftplugin/sparkup.vim
+
+" Chamando as Tags
+
+" Automatically open the taglist window on Vim startup
+let Tlist_Auto_Open = 0
+" When the taglist window is toggle opened, move the cursor to the taglist window
+let Tlist_GainFocus_On_ToggleOpen = 1
+" Process files even when the taglist window is not open
+let Tlist_Process_File_Always = 0
+let Tlist_Show_Menu = 1
+" Tag listing sort type - 'name' or 'order'
+let Tlist_Sort_Type = 'order'
+" Tag listing window split (horizontal/vertical) control
+let Tlist_Use_Right_Window = 1
+" Display tag prototypes or tag names in the taglist window
+let Tlist_Display_Prototype = 0
+" Display tag scopes in the taglist window
+let Tlist_Display_Tag_Scope = 0
+" Use single left mouse click to jump to a tag. By default this is disabled.
+" Only double click using the mouse will be processed.
+let Tlist_Use_SingleClick = 0
+" Control whether additional help is displayed as part of the taglist or
+" not.  Also, controls whether empty lines are used to separate the tag tree.
+let Tlist_Compact_Format = 1
+" Exit Vim if only the taglist window is currently open. By default, this is set to zero.
+let Tlist_Exit_OnlyWindow = 1
+" Automatically close the folds for the non-active files in the taglist window
+let Tlist_File_Fold_Auto_Close = 1
+" Close the taglist window when a tag is selected
+let Tlist_Close_On_Select = 1
+" Automatically update the taglist window to display tags for newly edited files
+let Tlist_Auto_Update = 1
+" Automatically highlight the current tag
+let Tlist_Auto_Highlight_Tag = 1
+" Automatically highlight the current tag on entering a buffer
+let Tlist_Highlight_Tag_On_BufEnter = 1
+" Enable fold column to display the folding for the tag tree
+let Tlist_Enable_Fold_Column = 1
+" Display the tags for only one file in the taglist window
+let Tlist_Show_One_File = 1
+
+source $HOME/.vim/plugin/taglist.vim
+map <F6> :TlistToggle<CR>
+
+" integrando o codesniffer ao VIM
+" set errorformat+=\"%f\"\\,%l\\,%c\\,%t%*[a-zA-Z]\\,\"%m\"\\,%*[a-zA-Z0-9_.-]
+" 
+" function! RunPhpcs() 
+"     let l:quote_token="'"
+"     let l:filename=@% 
+"     let l:phpcs_output=system('phpcs --report=csv '.l:filename) 
+"     let l:phpcs_output=substitute(l:phpcs_output, '\\"', l:quote_token, 'g')
+"     let l:phpcs_list=split(l:phpcs_output, "\n") 
+"     unlet l:phpcs_list[0] 
+"     cexpr l:phpcs_list 
+"     copen
+" endfunction 
+" command! Phpcs execute RunPhpcs()
+
+" {{{ Alignment
+
+func! PhpAlign() range
+    let l:paste = &g:paste
+    let &g:paste = 0
+
+    let l:line        = a:firstline
+    let l:endline     = a:lastline
+    let l:maxlength = 0
+    while l:line <= l:endline
+        " Skip comment lines
+        if getline (l:line) =~ '^\s*\/\/.*$'
+            let l:line = l:line + 1
+            continue
+        endif
+        " \{-\} matches ungreed *
+        let l:index = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\S\{0,1}=\S\{0,1\}\s.*$', '\1', "") 
+        let l:indexlength = strlen (l:index)
+        let l:maxlength = l:indexlength > l:maxlength ? l:indexlength : l:maxlength
+        let l:line = l:line + 1
+    endwhile
+
+    let l:line = a:firstline
+    let l:format = "%s%-" . l:maxlength . "s %s %s"
+
+    while l:line <= l:endline
+        if getline (l:line) =~ '^\s*\/\/.*$'
+            let l:line = l:line + 1
+            continue
+        endif
+        let l:linestart = substitute (getline (l:line), '^\(\s*\).*', '\1', "")
+        let l:linekey   = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\1', "")
+        let l:linesep   = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\2', "")
+        let l:linevalue = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\(\S\{0,1}=\S\{0,1\}\)\s\(.*\)$', '\3', "")
+
+        let l:newline = printf (l:format, l:linestart, l:linekey, l:linesep, l:linevalue)
+        call setline (l:line, l:newline)
+        let l:line = l:line + 1
+    endwhile
+    let &g:paste = l:paste
+endfunc
+
+vnoremap <buffer> <C-a> :call PhpAlign()<CR>
+
+""
+"" list chars
+""
+" set list listchars=tab:>\ ,trail:.,extends:>
+" Enter the middle-dot by pressing Ctrl-k then .M
+" set list listchars=tab:\|_,trail:·
+" Enter the right-angle-quote by pressing Ctrl-k then >>
+command! LC set list! listchars=tab:»\ ,trail:·
+" Enter the Pilcrow mark by pressing Ctrl-k then PI
+" set list listchars=tab:>-,eol:¶
+" The command :dig displays other digraphs you can use.
 
 au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx 
 au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx 
