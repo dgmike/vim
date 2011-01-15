@@ -1,3 +1,5 @@
+source ~/.vim/ftplugin/html/sparkup.vim
+
 syntax on
 set nocompatible
 set visualbell
@@ -10,6 +12,8 @@ set cf
 set ruler
 set laststatus=2
 set is
+set sm
+set scrolloff=2
 set sc
 set wildmenu                                                                            " enable ctrl-n and ctrl-p to scroll thru matches
 set wildmode=list:longest                                                               " make cmdline tab completion similar to bash
@@ -20,14 +24,11 @@ set clipboard+=unnamed
 set ai si
 set hls ci
 set mouse=a
+" set t_Co=256
+match ErrorMsg '\%>80v.\+'
 
-if (has("gui"))
-	set gfn=Monaco\ 12
-	color chocolate
-else
-	color desert256
-	set bg=dark
-end
+set gfn=Monaco\ 9
+color Mustang_Vim_Colorscheme_by_hcalves
 
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
@@ -50,9 +51,9 @@ imap ><s-Tab> ><Tab>
 
 map <F4> :noh<Cr>
 
-map <A-left>  :tabprev<Cr>
-map <A-right> :tabnext<Cr>
-map <A-Up> :ls<Cr>
+nmap <A-left>  :tabprev<Cr>
+nmap <A-right> :tabnext<Cr>
+nmap <A-Up> :ls<Cr>
 
 map <F9> :source ~/.vimrc<Cr>:echo ".vimrc recarregado!"<Cr>
 map <S-F9> :tabnew ~/.vimrc<Cr>
@@ -88,6 +89,7 @@ imap ar';<Tab> array(';<Tab>
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
 
 " phpdoc
+map ,pu :!phpunit %<Cr>
 map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
 
@@ -124,3 +126,6 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>F(i
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
+
+au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx 
+au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx 
