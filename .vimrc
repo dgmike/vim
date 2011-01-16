@@ -34,8 +34,8 @@ end
 if has("colorcolumn")
     set colorcolumn=80
 else
-    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '', -1)
-    au BufWinEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    " au BufWinEnter * let w:m2=matchadd('ErrorMsg', '', -1)
+    " au BufWinEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
     " au BufEnter *.php let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
@@ -94,7 +94,9 @@ cab X x
 imap {<Tab> {}<left>
 imap {<Cr> {<Esc>o}<Esc>O
 imap pfn<Tab> public fn<Tab>
+imap prfn<Tab> private fn<Tab>_
 imap fore<Tab> foreach ($ as $item) {<Cr><Esc>k0f$a
+imap forek<Tab> foreach ($ as $key => $value) {<Cr><Esc>k0f$a
 imap ?fore<Tab> <?php foreach ($ as $item): ?><Cr><?php endforeach; ?><Esc>O<Esc>k$2F$a
 imap c<Tab> class <Cr>{<Cr><Esc>2kA
 imap ?<Tab> <?php  ?><Esc>F i
@@ -102,6 +104,11 @@ imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
 imap =<Tab> <?php echo ; ?><Esc>F;i
 imap '=<Tab> '' => '',<Esc>7hi
+
+let php_sql_query=1
+let php_htmlInStrings=1
+let php_noShortTags=1
+" let php_folding=1
 
 " Arrays
 imap ar<Tab> array(<Tab>
@@ -166,6 +173,12 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 " AutoCommands
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
+
+au InsertEnter *.js imap $<Tab> $('<Tab>
+au InsertLeave *.js iunmap $<Tab>
+au InsertEnter *.js imap $;<Tab> $(';<Tab>
+au InsertLeave *.js iunmap $;<Tab>
+
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
 autocmd BufWinLeave * call clearmatches()
