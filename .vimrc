@@ -1,3 +1,5 @@
+source ~/.vim/ftplugin/html/sparkup.vim
+
 syntax on
 set nocompatible
 set visualbell
@@ -10,6 +12,8 @@ set cf
 set ruler
 set laststatus=2
 set is
+set sm
+set scrolloff=2
 set sc
 set wildmenu                                                                            " enable ctrl-n and ctrl-p to scroll thru matches
 set wildmode=list:longest                                                               " make cmdline tab completion similar to bash
@@ -22,6 +26,15 @@ set clipboard+=unnamed
 set ai si
 set hls ci
 set mouse=a
+" set t_Co=256
+match ErrorMsg '\%>80v.\+'
+
+set gfn=Monaco\ 9
+color Mustang_Vim_Colorscheme_by_hcalves
+
+
+
+
 
 if (has("gui_running"))
 	set gfn=Monaco\ 8
@@ -74,9 +87,9 @@ map <F8> :call ToggleTemplate()<CR>
 
 " Mapeamento
 
-map <A-left>  :tabprev<Cr>
-map <A-right> :tabnext<Cr>
-map <A-Up> :ls<Cr>
+nmap <A-left>  :tabprev<Cr>
+nmap <A-right> :tabnext<Cr>
+nmap <A-Up> :ls<Cr>
 
 map <F9> :source ~/.vimrc<Cr>:echo ".vimrc recarregado!"<Cr>
 map <S-F9> :tabnew ~/.vimrc<Cr>
@@ -140,6 +153,7 @@ imap %%<Tab> <%php%><%/php%><esc>F<i
 imap %i<Tab> <%if %><%/if%><esc>F<F%i
 
 " phpdoc
+map ,pu :!phpunit %<Cr>
 map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
 
@@ -208,7 +222,7 @@ function! SetTab(spaces)
     set tabstop=4
     set shiftwidth=4
     set noexpandtab
-    set listchars=tab:Â¬\ ,trail:-
+    set listchars=tab:¬\ ,trail:-
     set list
   endif
 endfunction
@@ -325,9 +339,12 @@ vnoremap <buffer> <C-a> :call PhpAlign()<CR>
 ""
 " set list listchars=tab:>\ ,trail:.,extends:>
 " Enter the middle-dot by pressing Ctrl-k then .M
-" set list listchars=tab:\|_,trail:Â·
+" set list listchars=tab:\|_,trail:·
 " Enter the right-angle-quote by pressing Ctrl-k then >>
-command! LC set list! listchars=tab:Â»\ ,trail:Â·
+command! LC set list! listchars=tab:»\ ,trail:·
 " Enter the Pilcrow mark by pressing Ctrl-k then PI
-" set list listchars=tab:>-,eol:Â¶
+" set list listchars=tab:>-,eol:¶
 " The command :dig displays other digraphs you can use.
+
+au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx 
+au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx 

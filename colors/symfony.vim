@@ -2,7 +2,7 @@
 " Maintainer: Juan frias <juandfrias at gmail dot com>
 " Last Change: 2009 Apr 4
 " Version: 1.0.0
-" URL: http://juan.axisym3.net/vim-color-schemes/#symfony
+" URL: http://www.axisym3.net/jdany/vim-the-editor/#symfony
 
 highlight clear
 if exists("syntax_on")
@@ -85,7 +85,7 @@ highlight SpellRare cterm=underline ctermfg=168 gui=underline guifg=#D75F87
 highlight Directory ctermfg=51 guifg=Cyan
 highlight LineNr ctermfg=235 ctermbg=147 guifg=#2B2B2B guibg=#C0C0FF
 highlight NonText ctermfg=239 ctermbg=235 guifg=#505050 guibg=#222222
-highlight SpecialKey ctermfg=60 guifg=lightslategrey
+highlight SpecialKey ctermfg=51 guifg=Cyan
 highlight Title cterm=bold ctermfg=15 gui=bold guifg=#FFFFFF
 highlight Visual ctermbg=60 guibg=#5A647E
 highlight MatchParen ctermfg=15 ctermbg=23 guifg=#FFFFFF guibg=#005f5f
