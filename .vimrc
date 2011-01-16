@@ -1,4 +1,4 @@
-source ~/.vim/ftplugin/html/sparkup.vim
+source ~/.vim/ftplugin/sparkup.vim
 
 syntax on
 set nocompatible
