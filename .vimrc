@@ -1,10 +1,9 @@
-source ~/.vim/ftplugin/sparkup.vim
-
 syntax on
 set nocompatible
 set visualbell
-set nu bg=dark
-set st=4 ts=4 sts=4 sw=4 et sta " tabstop, 
+set nu
+set bg=dark
+set st=4 ts=4 sts=4 sw=4 et sta " tabstop, tabsize, softtabstop, shiftwidth, expandtab
 set nowb nobk
 set showcmd
 set showmode
@@ -21,24 +20,25 @@ set wildignore+=*.o,*~,.lo,*.swp,*.pyc,*.pyo,*.dll,*.obj,*.bak,*.exe,*.jpg,*.gif
 set joinspaces
 filetype indent on
 set modeline
-
 set clipboard+=unnamed
 set ai si
 set hls ci
 set mouse=a
-" set t_Co=256
-match ErrorMsg '\%>80v.\+'
 
-set gfn=Monaco\ 9
-color Mustang_Vim_Colorscheme_by_hcalves
+" set gfn=Monaco\ 9
+" color Mustang_Vim_Colorscheme_by_hcalves
 
-
-
-
+" Use filetype plugins, e.g. for PHP
+filetype plugin on
+filetype indent on
 
 if (has("gui_running"))
-	set gfn=Monaco\ 8
+	set gfn=Monaco\ 9
 	color chocolate
+	set guioptions-=r
+	set guioptions-=l
+	set guioptions-=m
+	set guioptions-=T
 else
     let &t_Co=256
     color ir_black
@@ -117,9 +117,10 @@ imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
 imap =<Tab> <?php echo ; ?><Esc>F;i
 imap '=<Tab> '' => '',<Esc>7hi
+imap '==<Tab> '' => ''<Esc>7hi
 
-let php_sql_query=1
-let php_htmlInStrings=1
+"let php_sql_query=1
+"let php_htmlInStrings=1
 let php_noShortTags=1
 " let php_folding=1
 
@@ -128,6 +129,8 @@ imap ar<Tab> array(<Tab>
 imap ar;<Tab> array(;<Tab>
 imap ar'<Tab> array('<Tab>
 imap ar';<Tab> array(';<Tab>
+imap ar=<Tab> ar<Tab>'==<Tab>
+imap ar=;<Tab> ar;<Tab>'==<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
 imap deb<Tab> <Esc>:call Dg_debug()<CR>
@@ -180,6 +183,8 @@ imap loren<Tab> Lorem ipsum dolor sit amet, consectetur
   \ proident, sunt in culpa qui officia deserunt mollit anim id est
   \ laborum.
 
+imap lipsum<tab> loren<Tab>
+
 imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
   \controller.php<Esc>oinclude ';<Tab>model.php<Esc>o<Esc>oapp(;<Tab>
   \ar<Tab><Cr><Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>j==kk
@@ -188,10 +193,10 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 
-au InsertEnter *.js imap $<Tab> $('<Tab>
-au InsertLeave *.js iunmap $<Tab>
-au InsertEnter *.js imap $;<Tab> $(';<Tab>
-au InsertLeave *.js iunmap $;<Tab>
+au BufEnter *.js imap $<Tab> $('<Tab>
+au BufLeave *.js iunmap $<Tab>
+au BufEnter *.js imap $;<Tab> $(';<Tab>
+au BufLeave *.js iunmap $;<Tab>
 
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
@@ -201,16 +206,12 @@ autocmd BufWinLeave * call clearmatches()
 " autocmd InsertLeave * set nocul
 " autocmd InsertEnter * set cul 
 
-" Use filetype plugins, e.g. for PHP
-filetype plugin on
-filetype indent on
-
 " Set tab size on your file
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 au FileType php set omnifunc=phpcomplete#CompletePHP
-" Easy set tab size
 
+" Easy set tab size
 function! SetTab(spaces)
   let spaces = a:spaces
   if a:spaces > 0
@@ -229,50 +230,29 @@ endfunction
 
 command! -nargs=? ST :call SetTab(<f-args>)
 
-" habilitando ftplugin de sparkup
-source $HOME/.vim/ftplugin/sparkup.vim
-
 " Chamando as Tags
 
-" Automatically open the taglist window on Vim startup
-let Tlist_Auto_Open = 0
-" When the taglist window is toggle opened, move the cursor to the taglist window
-let Tlist_GainFocus_On_ToggleOpen = 1
-" Process files even when the taglist window is not open
-let Tlist_Process_File_Always = 0
+let Tlist_Auto_Open = 0 " Automatically open the taglist window on Vim startup
+let Tlist_GainFocus_On_ToggleOpen = 1 " When the taglist window is toggle opened, move the cursor to the taglist window
+let Tlist_Process_File_Always = 0 " Process files even when the taglist window is not open
 let Tlist_Show_Menu = 1
-" Tag listing sort type - 'name' or 'order'
-let Tlist_Sort_Type = 'order'
-" Tag listing window split (horizontal/vertical) control
-let Tlist_Use_Right_Window = 1
-" Display tag prototypes or tag names in the taglist window
-let Tlist_Display_Prototype = 0
-" Display tag scopes in the taglist window
-let Tlist_Display_Tag_Scope = 0
-" Use single left mouse click to jump to a tag. By default this is disabled.
-" Only double click using the mouse will be processed.
-let Tlist_Use_SingleClick = 0
-" Control whether additional help is displayed as part of the taglist or
-" not.  Also, controls whether empty lines are used to separate the tag tree.
-let Tlist_Compact_Format = 1
-" Exit Vim if only the taglist window is currently open. By default, this is set to zero.
-let Tlist_Exit_OnlyWindow = 1
-" Automatically close the folds for the non-active files in the taglist window
-let Tlist_File_Fold_Auto_Close = 1
-" Close the taglist window when a tag is selected
-let Tlist_Close_On_Select = 1
-" Automatically update the taglist window to display tags for newly edited files
-let Tlist_Auto_Update = 1
-" Automatically highlight the current tag
-let Tlist_Auto_Highlight_Tag = 1
-" Automatically highlight the current tag on entering a buffer
-let Tlist_Highlight_Tag_On_BufEnter = 1
-" Enable fold column to display the folding for the tag tree
-let Tlist_Enable_Fold_Column = 1
-" Display the tags for only one file in the taglist window
-let Tlist_Show_One_File = 1
+let Tlist_Sort_Type = 'order' " Tag listing sort type - 'name' or 'order'
+let Tlist_Use_Right_Window = 1 " Tag listing window split (horizontal/vertical) control
+let Tlist_Display_Prototype = 0 " Display tag prototypes or tag names in the taglist window
+let Tlist_Display_Tag_Scope = 0 " Display tag scopes in the taglist window
+let Tlist_Use_SingleClick = 0 " Use single left mouse click to jump to a tag. By default this is disabled.
+                              " Only double click using the mouse will be processed.
+let Tlist_Compact_Format = 1 " Control whether additional help is displayed as part of the taglist or
+                             " not.  Also, controls whether empty lines are used to separate the tag tree.
+let Tlist_Exit_OnlyWindow = 1 " Exit Vim if only the taglist window is currently open. By default, this is set to zero.
+let Tlist_File_Fold_Auto_Close = 1 " Automatically close the folds for the non-active files in the taglist window
+let Tlist_Close_On_Select = 1 " Close the taglist window when a tag is selected
+let Tlist_Auto_Update = 1 " Automatically update the taglist window to display tags for newly edited files
+let Tlist_Auto_Highlight_Tag = 1 " Automatically highlight the current tag
+let Tlist_Highlight_Tag_On_BufEnter = 1 " Automatically highlight the current tag on entering a buffer
+let Tlist_Enable_Fold_Column = 1 " Enable fold column to display the folding for the tag tree
+let Tlist_Show_One_File = 1 " Display the tags for only one file in the taglist window
 
-source $HOME/.vim/plugin/taglist.vim
 map <F6> :TlistToggle<CR>
 
 " integrando o codesniffer ao VIM
@@ -348,3 +328,11 @@ command! LC set list! listchars=tab:»\ ,trail:·
 
 au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx 
 au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx 
+
+" Automatically cd into the directory that the file is in
+autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+
+let b:PHP_autoformatcomment = 0
+
+source $HOME/.vim/ftplugin/sparkup.vim
+source $HOME/.vim/plugin/taglist.vim
