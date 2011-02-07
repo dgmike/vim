@@ -54,7 +54,7 @@ endif
 
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
-imap (<Tab> ()<Left>
+imap (<Tab> (  )<Left><Left>
 imap [<Tab> []<Left>
 imap ("<Tab> (<Tab>"<Tab>
 imap ["<Tab> [<Tab>"<Tab>
@@ -64,8 +64,8 @@ imap ['<Tab> [<Tab>'<Tab>
 imap ';<Tab> '';<Left><Left>
 imap ";<Tab> "";<Left><Left>
 
-imap (;<Tab> ();<Left><Left>
-imap (';<Tab> ('');<Left><Left><Left>
+imap (;<Tab> (  );<Left><Left><Left>
+imap (';<Tab> ( '' );<Left><Left><Left><Left><Left>
 imap [';<Tab> [''];<Left><Left><Left>
 
 imap ><Tab> ></><Esc>?<[a-zA-Z]<Cr><F4>lviwy/<\/><Cr><F4>lpF<i
@@ -151,9 +151,10 @@ function! Dg_debug()
 endfunction
 
 " Smaty
-imap %<Tab> <%%><Esc>F%i
-imap %%<Tab> <%php%><%/php%><esc>F<i
-imap %i<Tab> <%if %><%/if%><esc>F<F%i
+imap %<Tab> <%  %><Left><Left><Left>
+imap %%<Tab> <% php %><% /php %><esc>F<i
+imap %i<Tab> <% if %><% /if %><esc>F<F%i
+imap %*<Tab> <%*  *%><Left><Left><Left><Left>
 
 " phpdoc
 map ,pu :!phpunit %<Cr>
@@ -161,7 +162,7 @@ map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
 
 " Maps para Comandos
-nmap ,p :!reset && php %<Cr>
+nmap <C-S-P> :!reset && php %<Cr>
 nmap ,c :!phpcs %<Cr>
 nmap ,a :!svn add %<Cr>
 nmap ,dc :!svn ci % -m ""<Left>
@@ -190,6 +191,10 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
   \ar<Tab><Cr><Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>j==kk
 
 " AutoCommands
+au BufRead,BufNewFile *.smarty set filetype=smarty 
+au Filetype smarty exec('set dictionary=~/.vim/syntax/smarty.vim')
+au Filetype smarty set complete+=k 
+
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 
@@ -210,6 +215,14 @@ autocmd BufWinLeave * call clearmatches()
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 au FileType php set omnifunc=phpcomplete#CompletePHP
+" CTRL + X O
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
 
 " Easy set tab size
 function! SetTab(spaces)

@@ -19,7 +19,7 @@ endif
 syn case ignore
 
 runtime! syntax/html.vim
-"syn cluster htmlPreproc add=smartyUnZone
+" syn cluster htmlPreproc add=smartyUnZone
 
 syn keyword smartyTagName capture config_load include include_php
 syn keyword smartyTagName insert if elseif else ldelim rdelim literal
@@ -207,14 +207,13 @@ syn match smartyGlue "\.\|\->"
 
 
 syn region smartyModifier  matchgroup=Statement start=+|+   end=+\ze:\|\>+
-syn region smartyParameter matchgroup=Statement start=+:+   end=+\s\|}+ contains=smartyVariable, smartyDollarSign, smartyGlue, smartyInBracket, smartyStringDouble
-syn region smartyZone     matchgroup=Statement   start="{"   end="}" contains=smartyParameter, smartyProperty, smartyGlue, smartyModifier, smartyDollarSign, smartyInBracket, smartyStringDouble, smartyVariable, smartyString, smartyBlock, smartyTagName, smartyConstant, smartyInFunc
-syn region smartyComment  matchgroup=Comment   start="{\*" end="\*}"
+syn region smartyParameter matchgroup=Statement start=+:+   end=+\s\|%>+ contains=smartyVariable, smartyDollarSign, smartyGlue, smartyInBracket, smartyStringDouble
+syn region smartyZone     matchgroup=Statement   start="<%"   end="%>" contains=smartyParameter, smartyProperty, smartyGlue, smartyModifier, smartyDollarSign, smartyInBracket, smartyStringDouble, smartyVariable, smartyString, smartyBlock, smartyTagName, smartyConstant, smartyInFunc
+syn region smartyComment  matchgroup=Comment   start="<%\*" end="\*%>"
 
 syn region  htmlString   contained start=+"+ end=+"+ contains=htmlSpecialChar,javaScriptExpression,@htmlPreproc,smartyZone
 syn region  htmlString   contained start=+'+ end=+'+ contains=htmlSpecialChar,javaScriptExpression,@htmlPreproc,smartyZone
-  syn region htmlLink start="<a\>\_[^>]*\<href\>" end="</a>"me=e-4 contains=@Spell,htmlTag,htmlEndTag,htmlSpecialChar,htmlPreProc,htmlComment,javaScript,@htmlPreproc,smartyZone
-
+syn region htmlLink start="<a\>\_[^>]*\<href\>" end="</a>"me=e-4 contains=@Spell,htmlTag,htmlEndTag,htmlSpecialChar,htmlPreProc,htmlComment,javaScript,@htmlPreproc,smartyZone
 
 if version >= 508 || !exists("did_smarty_syn_inits")
   if version < 508
@@ -246,5 +245,6 @@ let b:current_syntax = "smarty"
 if main_syntax == 'smarty'
   unlet main_syntax
 endif
+
 
 " vim: ts=8
