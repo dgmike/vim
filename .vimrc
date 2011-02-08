@@ -202,6 +202,9 @@ au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
 autocmd BufWinLeave * call clearmatches()
 
+au BufRead,BufNewFile *.css set ft=css syntax=css3
+au BufRead *access.log* setf httplog 
+
 " Highlight current line in insert mode.
 " autocmd InsertLeave * set nocul
 " autocmd InsertEnter * set cul 
@@ -209,7 +212,7 @@ autocmd BufWinLeave * call clearmatches()
 " Set tab size on your file
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-au FileType php set omnifunc=phpcomplete#CompletePHP
+" au FileType php set omnifunc=phpcomplete#CompletePHP
 
 " Easy set tab size
 function! SetTab(spaces)
