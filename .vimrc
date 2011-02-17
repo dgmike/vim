@@ -54,7 +54,7 @@ endif
 
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
-imap (<Tab> ()<Left>
+imap (<Tab> (  )<Left><Left>
 imap [<Tab> []<Left>
 imap ("<Tab> (<Tab>"<Tab>
 imap ["<Tab> [<Tab>"<Tab>
@@ -64,8 +64,8 @@ imap ['<Tab> [<Tab>'<Tab>
 imap ';<Tab> '';<Left><Left>
 imap ";<Tab> "";<Left><Left>
 
-imap (;<Tab> ();<Left><Left>
-imap (';<Tab> ('');<Left><Left><Left>
+imap (;<Tab> (  );<Left><Left><Left>
+imap (';<Tab> ( '' );<Left><Left><Left><Left><Left>
 imap [';<Tab> [''];<Left><Left><Left>
 
 imap ><Tab> ></><Esc>?<[a-zA-Z]<Cr><F4>lviwy/<\/><Cr><F4>lpF<i
@@ -141,19 +141,20 @@ function! Dg_debug()
     exe "normal oprint '<strong>File:</strong> '.__FILE__.PHP_EOL;"
     exe "normal oprint '<strong>Line:</strong> '.__LINE__.PHP_EOL;"
     exe "normal oprint '<strong>Variable:</strong> "
-    exe "normal i" dg_v_debug 
+    exe "normal i" dg_v_debug
     exe "normal A';"
     exe "normal oprint '<hr />';"
     exe "normal oprint_r ("
-    exe "normal A" dg_v_debug 
+    exe "normal A" dg_v_debug
     exe "normal A );"
     exe "normal oprint '</pre>';"
 endfunction
 
 " Smaty
-imap %<Tab> <%%><Esc>F%i
-imap %%<Tab> <%php%><%/php%><esc>F<i
-imap %i<Tab> <%if %><%/if%><esc>F<F%i
+imap %<Tab> <%  %><Left><Left><Left>
+imap %%<Tab> <% php %><% /php %><esc>F<i
+imap %i<Tab> <% if %><% /if %><esc>F<F%i
+imap %*<Tab> <%*  *%><Left><Left><Left><Left>
 
 " phpdoc
 map ,pu :!phpunit %<Cr>
@@ -161,7 +162,7 @@ map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
 
 " Maps para Comandos
-nmap ,p :!reset && php %<Cr>
+nmap <C-S-P> :!reset && php %<Cr>
 nmap ,c :!phpcs %<Cr>
 nmap ,a :!svn add %<Cr>
 nmap ,dc :!svn ci % -m ""<Left>
@@ -190,6 +191,10 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
   \ar<Tab><Cr><Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>j==kk
 
 " AutoCommands
+au BufRead,BufNewFile *.smarty set filetype=smarty
+au Filetype smarty exec('set dictionary=~/.vim/syntax/smarty.vim')
+au Filetype smarty set complete+=k
+
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
 
@@ -203,16 +208,23 @@ au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
 autocmd BufWinLeave * call clearmatches()
 
 au BufRead,BufNewFile *.css set ft=css syntax=css3
-au BufRead *access.log* setf httplog 
+au BufRead *access.log* setf httplog
 
 " Highlight current line in insert mode.
 " autocmd InsertLeave * set nocul
-" autocmd InsertEnter * set cul 
+" autocmd InsertEnter * set cul
 
 " Set tab size on your file
 imap ts<Tab> /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-" au FileType php set omnifunc=phpcomplete#CompletePHP
+" CTRL + X O
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
 
 " Easy set tab size
 function! SetTab(spaces)
@@ -260,17 +272,17 @@ map <F6> :TlistToggle<CR>
 
 " integrando o codesniffer ao VIM
 " set errorformat+=\"%f\"\\,%l\\,%c\\,%t%*[a-zA-Z]\\,\"%m\"\\,%*[a-zA-Z0-9_.-]
-" 
-" function! RunPhpcs() 
+"
+" function! RunPhpcs()
 "     let l:quote_token="'"
-"     let l:filename=@% 
-"     let l:phpcs_output=system('phpcs --report=csv '.l:filename) 
+"     let l:filename=@%
+"     let l:phpcs_output=system('phpcs --report=csv '.l:filename)
 "     let l:phpcs_output=substitute(l:phpcs_output, '\\"', l:quote_token, 'g')
-"     let l:phpcs_list=split(l:phpcs_output, "\n") 
-"     unlet l:phpcs_list[0] 
-"     cexpr l:phpcs_list 
+"     let l:phpcs_list=split(l:phpcs_output, "\n")
+"     unlet l:phpcs_list[0]
+"     cexpr l:phpcs_list
 "     copen
-" endfunction 
+" endfunction
 " command! Phpcs execute RunPhpcs()
 
 " {{{ Alignment
@@ -289,7 +301,7 @@ func! PhpAlign() range
             continue
         endif
         " \{-\} matches ungreed *
-        let l:index = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\S\{0,1}=\S\{0,1\}\s.*$', '\1', "") 
+        let l:index = substitute (getline (l:line), '^\s*\(.\{-\}\)\s*\S\{0,1}=\S\{0,1\}\s.*$', '\1', "")
         let l:indexlength = strlen (l:index)
         let l:maxlength = l:indexlength > l:maxlength ? l:indexlength : l:maxlength
         let l:line = l:line + 1
@@ -329,8 +341,8 @@ command! LC set list! listchars=tab:»\ ,trail:·
 " set list listchars=tab:>-,eol:¶
 " The command :dig displays other digraphs you can use.
 
-au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx 
-au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx 
+au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx
+au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx
 
 " Automatically cd into the directory that the file is in
 autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
