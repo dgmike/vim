@@ -132,12 +132,12 @@ imap ar';<Tab> array(';<Tab>
 imap ar=<Tab> ar<Tab>'==<Tab>
 imap ar=;<Tab> ar;<Tab>'==<Tab>
 
-imap pprint<Tab> print '<pre class="debug" style="text-align:left;">'.print_r($, true)."</pre>";<Esc>F$a
+imap pprint<Tab> print '<pre class="debug" style="text-align:left;background:#FFFFFF;color:#333333;padding:5px;">'.print_r($, true)."</pre>";<Esc>F$a
 imap deb<Tab> <Esc>:call Dg_debug()<CR>
 
 function! Dg_debug()
     let dg_v_debug=input('Variavel: ')
-    exe "normal iprint '<pre style=\\\'border:1px solid silver;padding:5px;overflow:auto;\\\'>';"
+    exe "normal iprint '<pre style=\\\'border:1px solid silver;padding:5px;overflow:auto;background:#FFFFFF;text-align:left;\\\'>';"
     exe "normal oprint '<strong>File:</strong> '.__FILE__.PHP_EOL;"
     exe "normal oprint '<strong>Line:</strong> '.__LINE__.PHP_EOL;"
     exe "normal oprint '<strong>Variable:</strong> "
