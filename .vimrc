@@ -210,6 +210,8 @@ autocmd BufWinLeave * call clearmatches()
 au BufRead,BufNewFile *.css set ft=css syntax=css3
 au BufRead *access.log* setf httplog
 
+au BufNewFile,BufRead *.less set filetype=less
+
 " Highlight current line in insert mode.
 " autocmd InsertLeave * set nocul
 " autocmd InsertEnter * set cul
