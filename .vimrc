@@ -153,6 +153,22 @@ function! Dg_debug()
     exe "normal oprint '</pre>';"
 endfunction
 
+function! RunPhpcs()
+    let l:filename=@%
+    let l:phpcs_output=system('phpcs --report=emacs --standard=Pear '.l:filename)
+    let l:phpcs_list=split(l:phpcs_output, '\r')
+    " echo l:phpcs_output
+
+    cexpr l:phpcs_output
+    botright cwindow
+endfunction
+
+" set errorformat+=\"%f\"\\,%l\\,%c\\,%t%*[a-zA-Z]\\,\"%m\"
+set errorformat+=%f\\:%l\\:%c\\:\\s%t%*[a-zA-Z]\\s-\\s%m
+command! Phpcs execute RunPhpcs()
+
+map ,pcs :w<CR>:Phpcs<CR>
+
 " Smaty
 imap %<Tab> <%  %><Left><Left><Left>
 imap %%<Tab> <% php %><% /php %><esc>F<i
