@@ -54,7 +54,7 @@ endif
 
 imap "<Tab> ""<Left>
 imap '<Tab> ''<Left>
-imap (<Tab> (  )<Left><Left>
+imap (<Tab> ()<Left>
 imap [<Tab> []<Left>
 imap ("<Tab> (<Tab>"<Tab>
 imap ["<Tab> [<Tab>"<Tab>
@@ -64,8 +64,8 @@ imap ['<Tab> [<Tab>'<Tab>
 imap ';<Tab> '';<Left><Left>
 imap ";<Tab> "";<Left><Left>
 
-imap (;<Tab> (  );<Left><Left><Left>
-imap (';<Tab> ( '' );<Left><Left><Left><Left><Left>
+imap (;<Tab> ();<Left><Left>
+imap (';<Tab> ('');<Left><Left><Left>
 imap [';<Tab> [''];<Left><Left><Left>
 
 imap ><Tab> ></><Esc>?<[a-zA-Z]<Cr><F4>lviwy/<\/><Cr><F4>lpF<i
@@ -99,6 +99,7 @@ map <c-d> yyp
 cab tn tabnew
 cab W w
 cab Q q
+cab Qa qa
 cab Wq wq
 cab wQ wq
 cab X x
@@ -123,6 +124,8 @@ imap '==<Tab> '' => ''<Esc>7hi
 "let php_htmlInStrings=1
 let php_noShortTags=1
 " let php_folding=1
+let PHP_autoformatcomment = 1
+set formatoptions+=or
 
 " Arrays
 imap ar<Tab> array(<Tab>
@@ -197,11 +200,6 @@ au Filetype smarty set complete+=k
 
 au BufEnter * set ai
 au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
-
-au BufEnter *.js imap $<Tab> $('<Tab>
-au BufLeave *.js iunmap $<Tab>
-au BufEnter *.js imap $;<Tab> $(';<Tab>
-au BufLeave *.js iunmap $;<Tab>
 
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
