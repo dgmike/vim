@@ -24,6 +24,7 @@ set clipboard+=unnamed
 set ai si
 set hls ci
 set mouse=a
+noh
 
 " set gfn=Monaco\ 9
 " color Mustang_Vim_Colorscheme_by_hcalves
@@ -42,6 +43,8 @@ if (has("gui_running"))
 else
     let &t_Co=256
     color ir_black
+    " color Mustang_Vim_Colorscheme_by_hcalves
+    " color vividchalk
 end
 
 if has("colorcolumn")
@@ -77,9 +80,12 @@ map <F4> :noh<Cr>
 
 function! ToggleTemplate()
     if &background == 'dark'
-        color symfony
+        color khaki
     else
-        color ir_black
+        " color ir_black
+        " color Mustang_Vim_Colorscheme_by_hcalves
+        " color vividchalk
+        color Mustang_Vim_Colorscheme_by_hcalves
     endif
 endfunction
 
@@ -176,7 +182,7 @@ imap %i<Tab> <% if %><% /if %><esc>F<F%i
 imap %*<Tab> <%*  *%><Left><Left><Left><Left>
 
 " phpdoc
-map ,pu :!phpunit %<Cr>
+map ,pu :!reset && phpunit %<Cr>
 map ,pd :call PhpDoc()<Cr>
 imap ,pd <Esc>,pd
 
@@ -215,7 +221,12 @@ au Filetype smarty exec('set dictionary=~/.vim/syntax/smarty.vim')
 au Filetype smarty set complete+=k
 
 au BufEnter * set ai
-au BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
+
+" au BufRead,BufEnter *.js imap fn<Tab> function (){}<Esc>Fna
+" au BufRead,BufEnter *.js imap $<Tab> $('<Tab>
+" au BufRead,BufEnter *.js imap $;<Tab> $(';<Tab>
+" au BufLeave *.js iunmap $;<Tab>
+" au BufLeave *.js iunmap $<Tab>
 
 au BufEnter *.php imap fn<Tab> function ()<CR>{<Cr><Esc>2k$hi
 au BufRead,BufNewFile *.php     set indentexpr= | set smartindent
