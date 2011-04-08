@@ -64,7 +64,7 @@ let b:undo_indent = "set inde< indk<| unlet b:indent"
 
 " Load Once:
 if exists("*HtmlIndent")
-    call s:CheckUserSettings()
+    " call s:CheckUserSettings()
     finish
 endif
 
