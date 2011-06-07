@@ -6,5 +6,5 @@
 " Last Change:  2007 Sep 25
 "
 augroup twig
-     au! BufRead,BufNewFile *.twig   setfiletype htmltwig
+     au! BufEnter,BufRead,BufNewFile *.twig   setfiletype htmltwig
 augroup END

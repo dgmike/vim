@@ -76,6 +76,9 @@ imap ><s-Tab> ><Tab>
 
 map <F4> :noh<Cr>
 
+map <Home> :SmartHomeKey<CR>
+imap <Home> <C-O>:SmartHomeKey<CR>
+
 " Troca o template para facilitar a leitura em alguns casos
 
 function! ToggleTemplate()
@@ -180,6 +183,10 @@ imap %<Tab> <%  %><Left><Left><Left>
 imap %%<Tab> <% php %><% /php %><esc>F<i
 imap %i<Tab> <% if %><% /if %><esc>F<F%i
 imap %*<Tab> <%*  *%><Left><Left><Left><Left>
+
+" Twig
+imap {%<Tab> {%  %}<Left><Left><Left>
+imap {{<Tab> {{  }}<Left><Left><Left>
 
 " phpdoc
 map ,pu :!reset && phpunit %<Cr>
