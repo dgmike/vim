@@ -155,6 +155,7 @@ imap ar=<Tab> ar<Tab>'==<Tab>
 imap ar=;<Tab> ar;<Tab>'==<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;background:#FFFFFF;color:#333333;padding:5px;">'.print_r($, true)."</pre>";<Esc>F$a
+imap vd<Tab> var_dump(;<Tab>$
 imap deb<Tab> <Esc>:call Dg_debug()<CR>
 
 function! Dg_debug()
