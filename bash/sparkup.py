@@ -140,6 +140,14 @@ class HtmlDialect(Dialect):
             'name': 'input',
             'attributes': { 'type': 'hidden', 'name': '', 'value': '' }
             },
+        'button:button': {
+            'name': 'button',
+            'attributes': { 'type': 'button', 'class': 'button' }
+            },
+        'button:submit': {
+            'name': 'button',
+            'attributes': { 'type': 'submit', 'class': 'button submit' }
+            },
         'script:src': {
             'name': 'script',
             'attributes': { 'src': '' }
@@ -209,11 +217,13 @@ class HtmlDialect(Dialect):
         'checkbox': 'input:checkbox',
         'check': 'input:checkbox',
         'input:c': 'input:checkbox',
-        'button': 'input:button',
+        # 'button': 'input:button',
+        'button': 'button:button',
         'input:b': 'input:button',
         'input:h': 'input:hidden',
         'hidden': 'input:hidden',
-        'submit': 'input:submit',
+        # 'submit': 'input:submit',
+        'submit': 'button:submit',
         'input:s': 'input:submit',
         'radio': 'input:radio',
         'input:r': 'input:radio',

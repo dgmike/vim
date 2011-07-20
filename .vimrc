@@ -26,26 +26,16 @@ set hls ci
 set mouse=a
 noh
 
+if has("statusline")
+    set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l-%L,%c%V%)\ %P
+endif
+
 " set gfn=Monaco\ 9
 " color Mustang_Vim_Colorscheme_by_hcalves
 
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
 filetype indent on
-
-if (has("gui_running"))
-	set gfn=Monaco\ 9
-	color chocolate
-	set guioptions-=r
-	set guioptions-=l
-	set guioptions-=m
-	set guioptions-=T
-else
-    let &t_Co=256
-    color ir_black
-    " color Mustang_Vim_Colorscheme_by_hcalves
-    " color vividchalk
-end
 
 if has("colorcolumn")
     set colorcolumn=80
@@ -82,17 +72,37 @@ imap <Home> <C-O>:SmartHomeKey<CR>
 " Troca o template para facilitar a leitura em alguns casos
 
 function! ToggleTemplate()
+
     if &background == 'dark'
-        color khaki
+        if (has("gui_running"))
+            set gfn=Monaco\ 9
+            color chocolate
+            set guioptions-=r
+            set guioptions-=l
+            set guioptions-=m
+            set guioptions-=T
+        else
+            let &t_Co=256
+            " color ir_black
+            " color vividchalk
+            " color Mustang_Vim_Colorscheme_by_hcalves
+            color khaki
+        end
+        set bg=light
     else
         " color ir_black
         " color Mustang_Vim_Colorscheme_by_hcalves
         " color vividchalk
-        color Mustang_Vim_Colorscheme_by_hcalves
+        " color oceandeep
+        " color koehler
+        color default
+        set bg=dark
     endif
 endfunction
 
 map <F8> :call ToggleTemplate()<CR>
+call ToggleTemplate()
+call ToggleTemplate()
 
 " Mapeamento
 
@@ -201,6 +211,9 @@ nmap ,a :!svn add %<Cr>
 nmap ,dc :!svn ci % -m ""<Left>
 nmap ,df :!svn diff %<Cr>
 nmap <C-F11> :lvimgrep /function /%<Cr>:lw<Cr>
+
+" Mapa para remover espacos em branco no final da linha
+map trim :%s/ *$//g<Enter><F4>
 
 " dos2,nix
 nmap ,unix   :%s/\r$//     <CR>
