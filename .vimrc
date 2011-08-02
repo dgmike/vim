@@ -137,7 +137,8 @@ imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
 imap =<Tab> <?php echo ; ?><Esc>F;i
 imap '=<Tab> '' => '',<Esc>7hi
-imap '==<Tab> '' => ''<Esc>7hi
+imap '==<Tab> '' => ''<Esc>6hi
+imap ',<Tab> '', <Esc>F'i
 
 "let php_sql_query=1
 "let php_htmlInStrings=1
