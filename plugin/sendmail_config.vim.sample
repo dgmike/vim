@@ -1,0 +1,4 @@
+let g:sendmail_smtpserver = "imap.gmail.com.br"
+let g:sendmail_port = 587
+let g:sendmail_email = ""
+let g:sendmail_password = ""
