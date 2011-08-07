@@ -138,7 +138,14 @@ imap ?=<Tab> <?php echo ; ?><Esc>F;i
 imap =<Tab> <?php echo ; ?><Esc>F;i
 imap '=<Tab> '' => '',<Esc>7hi
 imap '==<Tab> '' => ''<Esc>6hi
+imap '=a<Tab> '' => array(),<Esc>F'i
+imap '==a<Tab> '' => array()<Esc>F'i
 imap ',<Tab> '', <Esc>F'i
+
+imap gdv<Tab> get_defined_vars()
+imap gdc<Tab> get_defined_constants()
+imap gc<Tab> get_class()
+imap gcm<Tab> get_class_methods()
 
 "let php_sql_query=1
 "let php_htmlInStrings=1
