@@ -22,7 +22,7 @@ def sendmail_email(to_address):
     password = vim.eval("g:sendmail_password")
 
     body = "\n".join(vim.current.buffer[2:])
-    msg = MIMEText(body)
+    msg  = MIMEText(body, _charset='utf-8')
     msg['Subject'] = vim.current.buffer[0]
     msg['From'] = from_address
     msg['To'] = to_address
