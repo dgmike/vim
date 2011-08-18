@@ -2,7 +2,7 @@ syntax on
 set nocompatible
 set visualbell
 set nu
-set bg=dark
+set bg=light
 set st=4 ts=4 sts=4 sw=4 et sta " tabstop, tabsize, softtabstop, shiftwidth, expandtab
 set nowb nobk
 set showcmd
@@ -29,9 +29,6 @@ noh
 if has("statusline")
     set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l-%L,%c%V%)\ %P
 endif
-
-" set gfn=Monaco\ 9
-" color Mustang_Vim_Colorscheme_by_hcalves
 
 " Use filetype plugins, e.g. for PHP
 filetype plugin on
@@ -75,34 +72,37 @@ function! ToggleTemplate()
 
     if &background == 'dark'
         if (has("gui_running"))
-            set gfn=Monaco\ 9
-            color chocolate
-            set guioptions-=r
-            set guioptions-=l
-            set guioptions-=m
-            set guioptions-=T
+            color default
         else
             let &t_Co=256
-            " color ir_black
-            " color vividchalk
-            " color Mustang_Vim_Colorscheme_by_hcalves
-            color khaki
+            " color nicotine
+            GuiColorScheme nicotine
         end
         set bg=light
     else
-        " color ir_black
-        " color Mustang_Vim_Colorscheme_by_hcalves
-        " color vividchalk
-        " color oceandeep
-        " color koehler
-        color default
+        if (has("gui_running"))
+            set gfn=Monaco\ 9
+            color chocolate
+        else
+            let &t_Co=256
+            color default
+            " color Mustang_Vim_Colorscheme_by_hcalves
+        end
         set bg=dark
     endif
 endfunction
 
 map <F8> :call ToggleTemplate()<CR>
+
+" Setup init template
 call ToggleTemplate()
-call ToggleTemplate()
+if (has("gui_running"))
+    call ToggleTemplate()
+    set guioptions-=r
+    set guioptions-=l
+    set guioptions-=m
+    set guioptions-=T
+endif
 
 " Mapeamento
 
@@ -146,6 +146,7 @@ imap gdv<Tab> get_defined_vars()
 imap gdc<Tab> get_defined_constants()
 imap gc<Tab> get_class()
 imap gcm<Tab> get_class_methods()
+imap ds<Tab> DIRECTORY_SEPARATOR
 
 "let php_sql_query=1
 "let php_htmlInStrings=1
