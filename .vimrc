@@ -132,6 +132,13 @@ imap fore<Tab> foreach ($ as $item) {<Cr><Esc>k0f$a
 imap forek<Tab> foreach ($ as $key => $value) {<Cr><Esc>k0f$a
 imap ?fore<Tab> <?php foreach ($ as $item): ?><Cr><?php endforeach; ?><Esc>O<Esc>k$2F$a
 imap c<Tab> class <Cr>{<Cr><Esc>2kA
+imap caf<Tab> class Apolo_Component_Formulator_Element_<C-R>=expand("%:t:r")<Cr>
+            \ <Cr>    extends
+            \ Apolo_Component_Formulator_Element<Cr>implements
+            \ Apolo_Component_Formulator_ElementInterface<Cr><HOME>{<Cr>
+            \ function setElement()<Cr>{<CR>
+
+
 imap ?<Tab> <?php  ?><Esc>F i
 imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
