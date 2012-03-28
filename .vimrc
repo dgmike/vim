@@ -160,6 +160,7 @@ imap ds<Tab> DIRECTORY_SEPARATOR
 let php_noShortTags=1
 " let php_folding=1
 let PHP_autoformatcomment = 1
+au BufEnter *.php setlocal comments=s1:/*,mb:*,ex:*/,://,:#
 set formatoptions+=or
 
 " Arrays
@@ -410,8 +411,6 @@ au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx
 
 " Automatically cd into the directory that the file is in
 autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
-
-let b:PHP_autoformatcomment = 0
 
 source $HOME/.vim/ftplugin/sparkup.vim
 source $HOME/.vim/plugin/taglist.vim
