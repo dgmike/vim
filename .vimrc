@@ -142,8 +142,8 @@ imap caf<Tab> class Apolo_Component_Formulator_Element_<C-R>=expand("%:t:r")<Cr>
 imap ?<Tab> <?php  ?><Esc>F i
 imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
-imap =<Tab> <?php echo ; ?><Esc>F;i
-imap '=<Tab> '' => '',<Esc>7hi
+" imap =<Tab> <?php echo ; ?><Esc>F;i
+" imap '=<Tab> '' => '',<Esc>7hi
 imap '==<Tab> '' => ''<Esc>6hi
 imap '=a<Tab> '' => array(),<Esc>F'i
 imap '==a<Tab> '' => array()<Esc>F'i
@@ -164,12 +164,12 @@ au BufEnter *.php setlocal comments=s1:/*,mb:*,ex:*/,://,:#
 set formatoptions+=or
 
 " Arrays
-imap ar<Tab> array(<Tab>
-imap ar;<Tab> array(;<Tab>
-imap ar'<Tab> array('<Tab>
-imap ar';<Tab> array(';<Tab>
-imap ar=<Tab> ar<Tab>'==<Tab>
-imap ar=;<Tab> ar;<Tab>'==<Tab>
+" imap ar<Tab> array(<Tab>
+" imap ar;<Tab> array(;<Tab>
+" imap ar'<Tab> array('<Tab>
+" imap ar';<Tab> array(';<Tab>
+" imap ar=<Tab> ar<Tab>'==<Tab>
+" imap ar=;<Tab> ar;<Tab>'==<Tab>
 
 imap pprint<Tab> print '<pre class="debug" style="text-align:left;background:#FFFFFF;color:#333333;padding:5px;">'.print_r($, true)."</pre>";<Esc>F$a
 imap vd<Tab> var_dump(;<Tab>$
@@ -254,7 +254,7 @@ imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
   \ar<Tab><Cr><Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>j==kk
 
 " AutoCommands
-au BufRead,BufNewFile *.smarty set filetype=smarty
+au BufRead,BufNewFile *.smarty set filetype=html.smarty
 au Filetype smarty exec('set dictionary=~/.vim/syntax/smarty.vim')
 au Filetype smarty set complete+=k
 
@@ -414,3 +414,7 @@ autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
 source $HOME/.vim/ftplugin/sparkup.vim
 source $HOME/.vim/plugin/taglist.vim
+
+" .vimrc || ftdetect || ftplugin/php.vim, ftplugin/php/hoge.vim
+au! BufRead,BufNewFile,BufWinEnter *Test.php
+            \ setfiletype phpunit.php

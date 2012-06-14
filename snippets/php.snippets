@@ -1,7 +1,7 @@
 snippet php
 	<?php
+
 	${1}
-	?>
 snippet ec
 	echo "${1:string}"${2};
 snippet inc
@@ -135,7 +135,7 @@ snippet doc_i
 	{${5}
 	} // END interface $1
 # class ...
-snippet class
+snippet class Simple Class
 	/**
 	 * ${1}
 	 **/
@@ -214,3 +214,20 @@ snippet fun
 # $... = array (...)
 snippet array
 	$${1:arrayName} = array('${2}' => ${3});${4}
+
+snippet ds
+	DIRECTORY_REPARATOR
+snippet var Public
+	public $${1:varname} = ${2:null};$3
+snippet var Private
+	private $${1:varname} = ${2:null};$3
+snippet var Protected
+	protected $${1:varname} = ${2:null};$3
+snippet ar
+	array(${1})
+snippet ar;
+	array(${1});
+snippet =
+	<?php echo ${1}; ?>
+snippet '=
+	'${1}' => '${2}',${3}
