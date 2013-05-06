@@ -18,6 +18,8 @@ if exists("syntax_on")
   syntax reset
 endif
 
+hi Comment ctermfg=gray
+
 let colors_name = "default"
 
 " vim: sw=2

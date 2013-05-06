@@ -72,7 +72,9 @@ function! ToggleTemplate()
 
     if &background == 'dark'
         if (has("gui_running"))
-            color default
+            set gfn=Monospace\ 9
+            " color default
+            color nicotine
         else
             let &t_Co=256
             " color nicotine
@@ -81,15 +83,18 @@ function! ToggleTemplate()
         set bg=light
     else
         if (has("gui_running"))
-            set gfn=Monaco\ 9
-            color chocolate
+            set gfn=Monospace\ 9
+            color Mustang_Vim_Colorscheme_by_hcalves
+            set bg=dark
         else
             let &t_Co=256
-            color default
             " color Mustang_Vim_Colorscheme_by_hcalves
+            color default
+            set bg=dark
+            hi Comment ctermfg=darkgray
         end
-        set bg=dark
     endif
+
 endfunction
 
 map <F8> :call ToggleTemplate()<CR>
@@ -97,7 +102,7 @@ map <F8> :call ToggleTemplate()<CR>
 " Setup init template
 call ToggleTemplate()
 if (has("gui_running"))
-    call ToggleTemplate()
+    " call ToggleTemplate()
     set guioptions-=r
     set guioptions-=l
     set guioptions-=m

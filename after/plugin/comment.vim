@@ -1,1 +1,0 @@
-hi Comment ctermfg=gray
