@@ -125,7 +125,8 @@ cab X x
 
 " ======================== PHP ==========================
 imap {<Tab> {}<left>
-imap {<Cr> {<Esc>o}<Esc>O
+" imap {<Cr> {<Esc>o}<Esc>O
+imap {<Cr> { <Esc>Do}<Esc>p^lxO
 imap pfn<Tab> public fn<Tab>
 imap prfn<Tab> private fn<Tab>_
 imap fore<Tab> foreach ($ as $item) {<Cr><Esc>k0f$a
