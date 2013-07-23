@@ -234,8 +234,11 @@ nmap ,dc :!svn ci % -m ""<Left>
 nmap ,df :!svn diff %<Cr>
 nmap <C-F11> :lvimgrep /function /%<Cr>:lw<Cr>
 
+" changelog
+imap <leader>chl r7-waiter (0.0.) hardy; urgency=low<CR><CR><CR> -- mgranados <mgranados@sp.r7.com> <C-R>=strftime("%a, %d %b %Y %H:%M:%S %z")<CR><CR><ESC>ggf)i
+
 " Mapa para remover espacos em branco no final da linha
-map trim :%s/ *$//g<Enter><F4>
+map trim :%s/\s*$//g<Enter><F4>
 
 " dos2,nix
 nmap ,unix   :%s/\r$//     <CR>
@@ -410,6 +413,7 @@ command! LC set list! listchars=tab:»\ ,trail:·
 " Enter the Pilcrow mark by pressing Ctrl-k then PI
 " set list listchars=tab:>-,eol:¶
 " The command :dig displays other digraphs you can use.
+hi SpecialKey ctermfg=black
 
 au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx
 au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx
