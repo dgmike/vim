@@ -72,7 +72,9 @@ function! ToggleTemplate()
 
     if &background == 'dark'
         if (has("gui_running"))
-            color default
+            set gfn=Monospace\ 9
+            " color default
+            color nicotine
         else
             let &t_Co=256
             " color nicotine
@@ -81,15 +83,18 @@ function! ToggleTemplate()
         set bg=light
     else
         if (has("gui_running"))
-            set gfn=Monaco\ 9
-            color chocolate
+            set gfn=Monospace\ 9
+            color Mustang_Vim_Colorscheme_by_hcalves
+            set bg=dark
         else
             let &t_Co=256
-            color default
             " color Mustang_Vim_Colorscheme_by_hcalves
+            color default
+            set bg=dark
+            hi Comment ctermfg=darkgray
         end
-        set bg=dark
     endif
+
 endfunction
 
 map <F8> :call ToggleTemplate()<CR>
@@ -97,7 +102,7 @@ map <F8> :call ToggleTemplate()<CR>
 " Setup init template
 call ToggleTemplate()
 if (has("gui_running"))
-    call ToggleTemplate()
+    " call ToggleTemplate()
     set guioptions-=r
     set guioptions-=l
     set guioptions-=m
@@ -230,8 +235,11 @@ nmap ,dc :!svn ci % -m ""<Left>
 nmap ,df :!svn diff %<Cr>
 nmap <C-F11> :lvimgrep /function /%<Cr>:lw<Cr>
 
+" changelog
+imap <leader>chl r7-waiter (0.0.) hardy; urgency=low<CR><CR><CR> -- mgranados <mgranados@sp.r7.com> <C-R>=strftime("%a, %d %b %Y %H:%M:%S %z")<CR><CR><ESC>ggf)i
+
 " Mapa para remover espacos em branco no final da linha
-map trim :%s/ *$//g<Enter><F4>
+map trim :%s/\s*$//g<Enter><F4>
 
 " dos2,nix
 nmap ,unix   :%s/\r$//     <CR>
@@ -406,6 +414,7 @@ command! LC set list! listchars=tab:»\ ,trail:·
 " Enter the Pilcrow mark by pressing Ctrl-k then PI
 " set list listchars=tab:>-,eol:¶
 " The command :dig displays other digraphs you can use.
+hi SpecialKey ctermfg=black
 
 au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx
 au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx
