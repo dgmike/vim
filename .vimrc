@@ -1,4 +1,8 @@
 :set t_Co=16
+
+:filetype plugin on
+:filetype indent on
+
 :execute pathogen#infect()
-:set runtimepath+=~/.vim/dgmike
 :runtime! dgmike/*.vim
+:set runtimepath+=~/.vim/dgmike
