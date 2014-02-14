@@ -20,7 +20,6 @@ set wildmenu                                                                    
 set wildmode=list:longest                                                               " make cmdline tab completion similar to bash
 set wildignore+=*.o,*~,.lo,*.swp,*.pyc,*.pyo,*.dll,*.obj,*.bak,*.exe,*.jpg,*.gif,*.png  " stuff to ignore when tab completing
 set joinspaces
-filetype indent on
 set modeline
 set clipboard+=unnamed
 set ai si
