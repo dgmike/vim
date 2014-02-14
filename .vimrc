@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 syntax on
 set nocompatible
 set visualbell
