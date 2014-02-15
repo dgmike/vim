@@ -28,3 +28,6 @@
 [submodule "bundle/vim-pastie"]
 	path = bundle/vim-pastie
 	url = https://github.com/tpope/vim-pastie.git
+[submodule "bundle/vim-surround"]
+	path = bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
