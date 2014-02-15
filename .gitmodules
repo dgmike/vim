@@ -25,3 +25,6 @@
 [submodule "bundle/vim-jst"]
 	path = bundle/vim-jst
 	url = https://github.com/briancollins/vim-jst.git
+[submodule "bundle/vim-pastie"]
+	path = bundle/vim-pastie
+	url = https://github.com/tpope/vim-pastie.git
