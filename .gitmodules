@@ -43,3 +43,6 @@
 [submodule "bundle/vim-snippets.git"]
 	path = bundle/vim-snippets.git
 	url = https://github.com/honza/vim-snippets.git
+[submodule "bundle/editorconfig-vim.git"]
+	path = bundle/editorconfig-vim.git
+	url = https://github.com/editorconfig/editorconfig-vim.git
