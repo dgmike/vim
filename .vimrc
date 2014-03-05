@@ -28,7 +28,7 @@ set mouse=a
 noh
 
 if has("statusline")
-    set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l-%L,%c%V%)\ %P
+    set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%y%k\ %-14.(%l-%L,%c%V%)\ %P
 endif
 
 " Use filetype plugins, e.g. for PHP
