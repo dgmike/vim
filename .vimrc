@@ -160,7 +160,7 @@ imap gdv<Tab> get_defined_vars()
 imap gdc<Tab> get_defined_constants()
 imap gc<Tab> get_class()
 imap gcm<Tab> get_class_methods()
-imap ds<Tab> DIRECTORY_SEPARATOR
+inoremap ds<Tab> DIRECTORY_SEPARATOR
 
 "let php_sql_query=1
 "let php_htmlInStrings=1
@@ -213,11 +213,12 @@ command! Phpcs execute RunPhpcs()
 
 map ,pcs :w<CR>:Phpcs<CR>
 
-" Smaty
+" Smarty / EJS
 imap %<Tab> <%  %><Left><Left><Left>
 imap %%<Tab> <% php %><% /php %><esc>F<i
 imap %i<Tab> <% if %><% /if %><esc>F<F%i
 imap %*<Tab> <%*  *%><Left><Left><Left><Left>
+imap %=<Tab> <%=  %><esc>T=i
 
 " Twig
 imap {%<Tab> {%  %}<Left><Left><Left>
