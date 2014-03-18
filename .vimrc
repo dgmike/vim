@@ -1,4 +1,5 @@
 execute pathogen#infect()
+runtime! dgmike/*.vim
 
 syntax on
 set nocompatible
