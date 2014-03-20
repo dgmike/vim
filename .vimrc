@@ -422,7 +422,7 @@ au BufRead,BufNewFile /etc/nginx/sites-avaliable/* set ft=nginx
 au BufRead,BufNewFile /etc/nginx/sites-enabled/* set ft=nginx
 
 " Automatically cd into the directory that the file is in
-autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
+" autocmd BufEnter * execute "chdir ".escape(expand("%:p:h"), ' ')
 
 source $HOME/.vim/ftplugin/sparkup.vim
 source $HOME/.vim/plugin/taglist.vim
@@ -430,3 +430,5 @@ source $HOME/.vim/plugin/taglist.vim
 " .vimrc || ftdetect || ftplugin/php.vim, ftplugin/php/hoge.vim
 au! BufRead,BufNewFile,BufWinEnter *Test.php
             \ setfiletype phpunit.php
+
+nmap ,ff :FufFile<CR>
