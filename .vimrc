@@ -1,4 +1,5 @@
 execute pathogen#infect()
+runtime! dgmike/*.vim
 
 syntax on
 set nocompatible
@@ -28,7 +29,7 @@ set mouse=a
 noh
 
 if has("statusline")
-    set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l-%L,%c%V%)\ %P
+    set statusline='%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%y%k\ %-14.(%l-%L,%c%V%)\ %P
 endif
 
 " Use filetype plugins, e.g. for PHP
@@ -149,17 +150,17 @@ imap caf<Tab> class Apolo_Component_Formulator_Element_<C-R>=expand("%:t:r")<Cr>
 imap ?<Tab> <?php  ?><Esc>F i
 imap ??<Tab> <?php<Cr><Cr>
 imap ?=<Tab> <?php echo ; ?><Esc>F;i
-" imap =<Tab> <?php echo ; ?><Esc>F;i
-" imap '=<Tab> '' => '',<Esc>7hi
+imap =<Tab> <?php echo ; ?><Esc>F;i
+imap '=<Tab> '' => '',<Esc>7hi
 imap '==<Tab> '' => ''<Esc>6hi
 imap '=a<Tab> '' => array(),<Esc>F'i
 imap '==a<Tab> '' => array()<Esc>F'i
 imap ',<Tab> '', <Esc>F'i
 
-imap gdv<Tab> get_defined_vars()
-imap gdc<Tab> get_defined_constants()
-imap gc<Tab> get_class()
-imap gcm<Tab> get_class_methods()
+inoremap gdv<Tab> get_defined_vars()<Left>
+inoremap gdc<Tab> get_defined_constants()<Left>
+inoremap gc<Tab> get_class()<Left>
+inoremap gcm<Tab> get_class_methods()<Left>
 inoremap ds<Tab> DIRECTORY_SEPARATOR
 
 "let php_sql_query=1
@@ -171,16 +172,16 @@ au BufEnter *.php setlocal comments=s1:/*,mb:*,ex:*/,://,:#
 set formatoptions+=or
 
 " Arrays
-" imap ar<Tab> array(<Tab>
-" imap ar;<Tab> array(;<Tab>
-" imap ar'<Tab> array('<Tab>
-" imap ar';<Tab> array(';<Tab>
-" imap ar=<Tab> ar<Tab>'==<Tab>
-" imap ar=;<Tab> ar;<Tab>'==<Tab>
+imap ar<Tab> array(<Tab>
+imap ar;<Tab> array(;<Tab>
+imap ar'<Tab> array('<Tab>
+imap ar';<Tab> array(';<Tab>
+imap ar=<Tab> ar<Tab>'==<Tab>
+imap ar=;<Tab> ar;<Tab>'==<Tab>
 
-imap pprint<Tab> print '<pre class="debug" style="text-align:left;background:#FFFFFF;color:#333333;padding:5px;">'.print_r($, true)."</pre>";<Esc>F$a
-imap vd<Tab> var_dump(;<Tab>$
-imap deb<Tab> <Esc>:call Dg_debug()<CR>
+inoremap pprint<Tab> print '<pre class="debug" style="text-align:left;background:#FFFFFF;color:#333333;padding:5px;">'.print_r($, true)."</pre>";<Esc>F$a
+inoremap vd<Tab> var_dump($);<Esc>F$a
+inoremap deb<Tab> <Esc>:call Dg_debug()<CR>
 
 function! Dg_debug()
     let dg_v_debug=input('Variavel: ')
@@ -260,9 +261,14 @@ imap loren<Tab> Lorem ipsum dolor sit amet, consectetur
 
 imap lipsum<tab> loren<Tab>
 
-imap ice<Tab> ??<Tab>include ';<Tab>ice/app.php<Esc>oinclude ';<Tab>
-  \controller.php<Esc>oinclude ';<Tab>model.php<Esc>o<Esc>oapp(;<Tab>
-  \ar<Tab><Cr><Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>j==kk
+imap ice<Tab>
+  \??<Tab>
+  \<Esc>iinclude ';<Tab>ice/app.php
+  \<Esc>oinclude ';<Tab>controller.php
+  \<Esc>oinclude ';<Tab>model.php
+  \<Esc>o<Esc>oapp(;<Tab>
+  \<Esc>aar<Tab><Cr>
+  \<Esc>O'=<Tab>^/?$<Esc>2f'aHome<Esc>>>
 
 " AutoCommands
 au BufRead,BufNewFile *.smarty set filetype=html.smarty
