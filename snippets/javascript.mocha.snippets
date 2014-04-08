@@ -1,6 +1,17 @@
-# describe
+# description
 snippet desc
 	describe('${1:description}', function () {
-	  ${0:// code}
+		${0:// code}
 	});
-	
+# context
+snippet cont
+
+	context('${1:description}', function () {
+		${0:// code}
+	});
+# it
+snippet it
+	it('${1:description}', function (${2:done}) {
+		${0:// code}
+	});
+
