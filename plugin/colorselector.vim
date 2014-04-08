@@ -70,8 +70,8 @@ fun! g:SetColor()
   if (has('gui_running'))
     exec 'colors ' . name
   else
-    exec 'GuiColorScheme ' . name
-    " exec 'colors ' . name
+    " exec 'GuiColorScheme ' . name
+    exec 'colors ' . name
   endif
   redraw
   echo "Current colorscheme: " . name
