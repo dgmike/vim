@@ -79,8 +79,8 @@ function! ToggleTemplate()
             color nicotine
         else
             let &t_Co=256
-            " color nicotine
-            GuiColorScheme nicotine
+            color nicotine
+            " GuiColorScheme nicotine
         end
         set bg=light
     else
@@ -91,7 +91,7 @@ function! ToggleTemplate()
         else
             let &t_Co=256
             " color Mustang_Vim_Colorscheme_by_hcalves
-            color default
+            color 256-jungle
             set bg=dark
             hi Comment ctermfg=darkgray
         end
