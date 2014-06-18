@@ -55,12 +55,12 @@
 [submodule "bundle/vim-project"]
 	path = bundle/vim-project
 	url = https://github.com/amiorin/vim-project
-[submodule "bundle/jslint.vim"]
-	path = bundle/jslint.vim
-	url = https://github.com/hallettj/jslint.vim.git
 [submodule "bundle/plantuml-syntax"]
 	path = bundle/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax.git
 [submodule "bundle/gist-vim.git"]
 	path = bundle/gist-vim.git
 	url = https://github.com/mattn/gist-vim.git
+[submodule "bundle/syntastic.git"]
+	path = bundle/syntastic.git
+	url = https://github.com/scrooloose/syntastic.git
