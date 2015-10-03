@@ -1,8 +1,7 @@
 :set t_Co=16
 
-:filetype plugin on
-:filetype indent on
-
 :execute pathogen#infect()
-:runtime! dgmike/*.vim
-:set runtimepath+=~/.vim/dgmike
+:runtime! $HOME/dgmike/*.vim
+:set runtimepath+=$HOME/.vim/dgmike
+
+" vim: set ts=2 sw=2 tw=0 noet :
