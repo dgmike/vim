@@ -3,16 +3,17 @@
 :call vundle#begin()
 
 :Plugin 'VundleVim/Vundle.vim'
-:Plugin 'scrooloose/nerdtree'
-:Plugin 'Xuyuanp/nerdtree-git-plugin'
+:Plugin 'L9'
 :Plugin 'Townk/vim-autoclose'
+:Plugin 'Xuyuanp/nerdtree-git-plugin'
+:Plugin 'airblade/vim-gitgutter'
 :Plugin 'editorconfig/editorconfig-vim'
 :Plugin 'mattn/emmet-vim'
 :Plugin 'nathanaelkane/vim-indent-guides'
-:Plugin 'airblade/vim-gitgutter'
-:Plugin 'vim-scripts/grep.vim'
-:Plugin 'L9'
-:Plugin 'vim-scripts/FuzzyFinder'
 :Plugin 'puppetlabs/puppet-syntax-vim'
+:Plugin 'rodjek/vim-puppet'
+:Plugin 'scrooloose/nerdtree'
+:Plugin 'vim-scripts/FuzzyFinder'
+:Plugin 'vim-scripts/grep.vim'
 
 :call vundle#end()
