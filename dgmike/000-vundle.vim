@@ -13,5 +13,6 @@
 :Plugin 'vim-scripts/grep.vim'
 :Plugin 'L9'
 :Plugin 'vim-scripts/FuzzyFinder'
+:Plugin 'puppetlabs/puppet-syntax-vim'
 
 :call vundle#end()
