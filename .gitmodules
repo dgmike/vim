@@ -73,3 +73,7 @@
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
+[submodule "bundle/vim-slim"]
+	path = bundle/vim-slim
+	url = https://github.com/slim-template/vim-slim.git
+	branch = master
