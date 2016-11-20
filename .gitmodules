@@ -86,3 +86,6 @@
 [submodule "bundle/vim-gemfile"]
 	path = bundle/vim-gemfile
 	url = https://github.com/muz/vim-gemfile.git
+[submodule "bundle/vim-stylus"]
+	path = bundle/vim-stylus
+	url = git://github.com/wavded/vim-stylus.git
