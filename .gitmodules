@@ -83,3 +83,6 @@
 [submodule "bundle/vim-bundler"]
 	path = bundle/vim-bundler
 	url = https://github.com/tpope/vim-bundler.git
+[submodule "bundle/vim-gemfile"]
+	path = bundle/vim-gemfile
+	url = https://github.com/muz/vim-gemfile.git
