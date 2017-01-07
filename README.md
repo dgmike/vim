@@ -1,6 +1,8 @@
 dgmike/vim (wolf version)
 =========================
 
+![Wolf](https://raw.githubusercontent.com/dgmike/vim/wolf/wolf.png)
+
 *tip*: use [solarized](https://github.com/sigurdga/gnome-terminal-colors-solarized) for terminal colors.
 
 Easy installation
