@@ -18,5 +18,8 @@
 :Plugin 'vim-scripts/FuzzyFinder'
 :Plugin 'vim-scripts/grep.vim'
 :Plugin 'digitaltoad/vim-jade'
+:Plugin 'vim-airline/vim-airline'
+:Plugin 'vim-airline/vim-airline-themes'
 
 :call vundle#end()
+:filetype plugin indent on
