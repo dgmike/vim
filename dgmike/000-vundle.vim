@@ -4,6 +4,7 @@
 
 :Plugin 'VundleVim/Vundle.vim'
 :Plugin 'L9'
+:Plugin 'vim-scripts/fugitive.vim'
 :Plugin 'Townk/vim-autoclose'
 :Plugin 'Xuyuanp/nerdtree-git-plugin'
 :Plugin 'airblade/vim-gitgutter'
